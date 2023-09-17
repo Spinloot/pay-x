@@ -1,20 +1,17 @@
 {
-  "name": "react-native-upi-payment",
-  "version": "1.0.4",
+  "name": "sl-rn-upi-payment",
+  "version": "1.0.0",
   "scripts": {},
   "main": "index.js",
   "keywords": [
     "react-native",
     "react",
-    "native",
-    "upi",
-    "payments",
-    "peer to peer"
+    "javascript",
   ],
-  "author": "Nitish Phanse",
+  "author": "Sunil Meena",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nitish24p/react-native-upi/issues"
+    "url": "https://github.com/Sunilthecoder007/rn-upi/issues"
   },
-  "homepage": "https://github.com/nitish24p/react-native-upi#readme"
+  "homepage": "https://github.com/Sunilthecoder007/rn-upi/#readme"
 }
