@@ -50,7 +50,7 @@ public class UpiPaymentModule extends ReactContextBaseJavaModule implements Acti
         intent.setData(Uri.parse(config.getString("upiString")));
         Context currentContext = getCurrentActivity().getApplicationContext();
         if (intent != null) {
-            Intent chooser = Intent.createChooser(intent, "Choose a upi app");
+            Intent chooser = Intent.createChooser(intent, "Select Payment App");
             if (isCallable(chooser, currentContext)) {
                 getCurrentActivity().startActivityForResult(chooser, REQUEST_CODE);
             } else {
