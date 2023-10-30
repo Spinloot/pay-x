@@ -44,19 +44,38 @@ public class UpiPaymentModule extends ReactContextBaseJavaModule implements Acti
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
 
-
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(config.getString("upiString")));
+
         Context currentContext = getCurrentActivity().getApplicationContext();
+        PackageManager packageManager = currentContext.getPackageManager();
+        
         if (intent != null) {
+<<<<<<< Updated upstream
             Intent chooser = Intent.createChooser(intent, "Select Payment App");
             if (isCallable(chooser, currentContext)) {
                 getCurrentActivity().startActivityForResult(chooser, REQUEST_CODE);
+=======
+            List<ResolveInfo> resInfoList = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            
+            for (ResolveInfo resolveInfo : resInfoList) {
+                String packageName = resolveInfo.activityInfo.packageName;
+                
+                // Only include the UPI apps you want (Paytm, PhonePe, Google Pay)
+                if (packageName.contains("net.one97.paytm") || packageName.contains("com.phonepe.app") || packageName.contains("com.google.android.apps.nbu.paisa.user")) {
+                    intent.setPackage(packageName);
+                    break;
+                }
+            }
+
+            if (intent.getPackage() != null) {
+                getCurrentActivity().startActivityForResult(intent, REQUEST_CODE);
+>>>>>>> Stashed changes
             } else {
                 final JSONObject responseData = new JSONObject();
                 try {
-                    responseData.put("message", "UPI supporting app not installed");
+                    responseData.put("message", "No supported UPI app installed (Paytm, PhonePe, Google Pay)");
                     responseData.put("status", FAILURE);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -66,6 +85,7 @@ public class UpiPaymentModule extends ReactContextBaseJavaModule implements Acti
             }
         }
     }
+
 
     private boolean isCallable(Intent intent, Context context) {
         List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
